@@ -1,36 +1,49 @@
+
 public class ZarzadzaniePlaylistami {
-    public static void main(String[] args) {
-        Playlist rock = new Playlist("ROCK", 15);
-        Playlist pop = new Playlist("POP");
 
-        rock.wyswietlUtowry();
-        pop.usunUtwor(4);
-        rock.pobierzUtwor(3);
+	public static void main(String[] args) {
+		
+		//utworzy� dwa obiekty playlist (o nazwach np. Rock i Pop),
+		Playlista rock = new Playlista("Rock");
+		Playlista pop = new Playlista("Pop");
+		
+		//doda� co najmniej klika utwor�w do ka�dej z playlist,
+		rock.dodajUtwor("Show must go on");
+		rock.dodajUtwor("Moskau");
+		rock.dodajUtwor("Innuendo");
+		
+		pop.dodajUtwor("Thriller");
+		pop.dodajUtwor("Lucky");
+		pop.dodajUtwor("Roar");
+		
+		//wy�wietli� zawarto�� obu playlist,
+		rock.wyswietlPlayliste();
+		pop.wyswietlPlayliste();
+		
+		//posortowa� zawarto�� obu playlist,
+		rock.sortuj();
+		pop.sortuj();
+		
+		//ponownie wy�wietli� zawarto�� obu playlist,
+		rock.wyswietlPlayliste();
+		pop.wyswietlPlayliste();
+		
+		//usun�� wybrany utw�r z jednej z playlist,
+		pop.usunUtwor(2);
+		
+		//wy�wietli� zawarto�� zmienionej playlisty,
+		pop.wyswietlPlayliste();
+		
+		//kopiowa� wybrany utw�r z jednej playlisty do drugiej,
+		pop.dodajUtwor(rock.podajNazweUtworu(1));
+		
+		//wy�wietli� zawarto�� zmienionej playlisty,
+		pop.wyswietlPlayliste();
+		
+		//posortowa� zmienion� playlist� i zn�w wy�wietli� jej zawasto��.
+		pop.sortuj();
+		pop.wyswietlPlayliste();
+		
+	}
 
-        rock.dodajUtwor("");
-
-        rock.dodajUtwor("Smoke on the water");
-        rock.dodajUtwor("Have youever seen the rain?");
-        rock.dodajUtwor("Fortunate Son");
-
-        pop.dodajUtwor("Jutro");
-        pop.dodajUtwor("Kalejdoskop Szczęścia");
-        pop.dodajUtwor("What are you waiting for?");
-
-        rock.wyswietlUtowry();
-        pop.wyswietlUtowry();
-
-        String utwor = pop.usunUtwor(2);
-        System.out.println("usunięto: " + utwor);
-        pop.wyswietlUtowry();
-        pop.dodajUtwor(utwor);
-        pop.wyswietlUtowry();
-
-        rock.posortujUtwory();
-        rock.wyswietlUtowry();
-
-        rock.dodajUtwor(pop.pobierzUtwor(2));
-        rock.wyswietlUtowry();
-
-    }
 }
