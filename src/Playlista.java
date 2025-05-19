@@ -1,54 +1,70 @@
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Playlista {
-	//prywatne atrybuty nazwy playlisty i listy utwor�w (na razie ka�dy utw�r to tekst - tytu� utworu);
-	private String nazwa;
-	private List<String> utwory;
+	String name;
+	String[] listaUtworow;
+	int ileUtworow;
 	
-	//konstruktor umo�liwiaj�cy podanie nazwy playlisty,	
-	public Playlista(String nazwa) {
-		super();
-		this.nazwa = nazwa;
-		utwory = new LinkedList<String>();
+	public Playlista(String nazwa, int dlugosc) {
+		name = nazwa;
+		ileUtworow = 0;
+		listaUtworow = new String[dlugosc];
 	}
 	
-	//dodawanie utwor�w do playlisty (z odpowiednim komunikatem w przypadku pr�by dodania utworu o pustej nazwie)
-	public void dodajUtwor(String utwor) {
-		if(utwor==null || utwor.trim().equals("")) {
-			System.err.println("Nazwa utworu nie mo�e by� pusta");
-		}else {
-			utwory.add(utwor);
+	public void dodajUtwor(String nazwaUtworu) {
+		if(nazwaUtworu==null || nazwaUtworu.trim().isEmpty()) {
+			System.out.println("Nie mozesz dodac pustego utworu");
+			return;
 		}
-	}
-	
-	//pobieranie nazwy wskazanego utworu z listy -- utw�r wskazujemy podaj�c jego numer na li�cie;
-	public String podajNazweUtworu(int numer) {
-		return utwory.get(numer-1);		
-	}
-	
-	//wy�wietlanie na konsoli zawarto�ci listy (z odpowiednim komunikatem w przypadku gdy lista jest pusta);
-	public void wyswietlPlayliste() {
-		if(utwory.size()==0) {
-			System.out.println("Playlista "+nazwa+" jest pusta!");
-		}else {
-			System.out.println("------"+nazwa+"------");
-			for(int i = 0; i<utwory.size();i++) {
-				System.out.println((i+1)+". "+utwory.get(i));
-			}			 
+		if (ileUtworow >= listaUtworow.length) {
+			System.out.println("Nie mozesz dodac więcej utworów");
+			return;
 		}
+		listaUtworow[ileUtworow++] = nazwaUtworu;
 	}
-	
-	//kasowanie wybranego utworu z listy -- utw�r wskazujemy podaj�c jego numer na li�cie; 
-	public void usunUtwor(int numer) {
-		utwory.remove(numer-1);
-	}	
-	
-	//alfabetyczne sortowanie utwor�w na liscie.
-	public void sortuj() {
-		Collections.sort(utwory);
-	}	
 
-	public Strin getNazwa //  dokonczyc????
+	public String usunUtwor(int indeksUtworu) {
+		if (indeksUtworu < 1 || indeksUtworu > ileUtworow) {
+			System.out.println("Nie ma takiego utworu");
+			return null;
+		}
+		String nazwaUtworu = listaUtworow[indeksUtworu - 1];
+		listaUtworow[indeksUtworu - 1] = null;
+
+		for(int i = indeksUtworu - 1; i < ileUtworow - 1; i++) {
+			listaUtworow[i] = listaUtworow[i + 1];
+		}
+
+	listaUtworow[ileUtworow - 1] = null;
+	ileUtworow--;
+
+	return nazwaUtworu;
+	}
+	
+	public String pobierzUtwor(int indeksUtworu) {
+		if (indeksUtworu < 1 || indeksUtworu > ileUtworow) {
+			System.out.println("Nie ma takiego utworu");
+			return null;
+		}
+		return listaUtworow[indeksUtworu - 1];		
+	}
+	
+	public void wyswietlUtwory() {
+		if(ileUtworow == 0) {
+			System.out.println("Nie ma utworów na tej playliście");
+			return;
+		}
+		System.out.println(this.name + " lista utworów:");
+		for(int i = 0; i < ileUtworow; i++) {
+			System.out.println((i+1) + ". " + listaUtworow[i]);
+		}
+	}
+
+	public void posorujUtwory() {
+		Arrays.sort(listaUtworow, 0, ileUtworow);
+	}
+	
+	public String getNazwa(){
+		return name;
+	}
 }
