@@ -12,7 +12,7 @@ public class ZarzadzaniePlaylistami {
         rock.dodajUtwor("");
 
         rock.dodajUtwor("Smoke on the water");
-        rock.dodajUtwor("Have youever seen the rain?");
+        rock.dodajUtwor("Have you ever seen the rain?");
         rock.dodajUtwor("Fortunate Son");
 
         pop.dodajUtwor("Jutro");
