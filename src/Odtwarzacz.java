@@ -10,8 +10,12 @@ public class Odtwarzacz {
 
     public Odtwarzacz() {
         lista = new HashMap<>();
-        lista.put("rock", new Playlista("rock"));
-        lista.put("pop", new Playlista("pop"));
+
+		try {
+			lista.put("rock", new Playlista("rock"));
+        	lista.put("pop", new Playlista("pop"));
+			init();
+		} catch(Exception e)
 
         sc = new Scanner(System.in);
 
@@ -51,6 +55,8 @@ public class Odtwarzacz {
 			 System.out.println("\t  (7) skopiować utwór");
 			 System.out.println("\t  (8) skasować utwór");
 			 System.out.println("\t  (9) wyłączyć odtwarzacz");
+			 System.out.println("\t  (10) zapis do pliku");
+			 System.out.println("\t  (11) odczyt pliku");
 			byte option = sc.nextByte();
 			sc.nextLine();
 
@@ -148,6 +154,18 @@ public class Odtwarzacz {
 					break;
 				case 9:
 					return;
+				case 10:
+					p = wybierzPlayliste();
+					System.out.println("Podaj plik docelowy");
+					String nazwa_pliku = sc.nextLine();
+					p.saveToFile(new File(nazwa_pliku));
+					break;
+				case 11:
+					System.out.println("Podaj plik zródłowy");
+					String plik_zrodlowy = sc.nextLine();
+					p = Playlista.readFromFile(new File(plik_zrodlowy));
+					lista.put(p.getNazwa(), p);
+					break;
 				default:
 					System.err.println("Nie ma takiej opcji!");
 					break;

@@ -1,9 +1,14 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
+
 public class Playlista {
-	String name;
-	String[] listaUtworow;
 	int ileUtworow;
+	String nazwa;
+	ArrayList<Utwor> listaUtworow;
 	
 	public Playlista(String nazwa, int dlugosc) {
 		name = nazwa;
@@ -61,10 +66,36 @@ public class Playlista {
 	}
 
 	public void posorujUtwory() {
-		Arrays.sort(listaUtworow, 0, ileUtworow);
+		Arrays.sort(listaUtworow, w);
 	}
 	
 	public String getNazwa(){
-		return name;
+		return nazwa;
+	}
+
+	public void saveToFile() throws Eception {
+		BufferedWriter bfw = new BufferedWriter(new FileWriter(f));
+		bfw.write(this.getNazwa());
+		bfw.newLine();
+		for(Utwor u : listaUtworow) {
+			bfw.write(u.serialize());
+			bfw.newLine();
+		}
+		bfw.close();
+	}
+	public static Playlista readFromFile(file F) throws Exception {
+		BufferedReader bfr = new BufferedReader(new FileReader(F));
+		String line;
+		Playlista p = null;
+		while((line = bfr.readLine()) != null) {
+			if(p == null) {
+				p = new Playlista(line);
+			} else {
+				p.dodajUtwor(Utwor.deserialize(line)); 
+			}
+		}
+		bfr.close();
+		return p;
+
 	}
 }
